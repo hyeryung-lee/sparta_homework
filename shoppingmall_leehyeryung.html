@@ -17,22 +17,11 @@
             font-family: 'Jua', sans-serif;
             font-size: 20px;
         }
-        .box1 {
+        .box {
             text-align: center;
             font-size: 30px;
             color: white;
             display: inline-block;
-            width: 120px;
-            height: 45px;
-            padding: auto;
-            border-radius: 8px;
-            background-color: #FF566F;
-        }
-        .box2 {
-            text-align: center;
-            font-size: 30px;
-            color: white;
-            display: block;
             width: 120px;
             height: 45px;
             padding: auto;
@@ -46,26 +35,49 @@
             color: #FF338F;
         }
 
+        #rate_of_exchange{
+            color: #FF338F;
+        }
+
     </style>
 
     <script>
-        function hey(){
-            let n = $('#name').val();
-            let a = $('#adress').val();
-            let p = $('#phone').val();
-            if (n == '') {
+        function find_blank(){
+            let name = $('#name').val();
+            let amount = $('#amount').val();
+            let address = $('#adress').val();
+            let phone = $('#phone').val();
+            
+            if (name == '') {
                 alert( '이름을 입력해주세요.');
             }
-            else if (a == ''){
+            else if (amount == '----수량을 입력하세요----'){
+                alert( '수량을 입력해주세요.');
+            }
+            else if (adress == ''){
                 alert( '주소를 입력해주세요.');
             }
-            else if (p == ''){
-                alert( '연락처를 입력해주세요.');
+            else if (phone == ''){
+                alert( '전화번호를 입력해주세요.');
             }
             else{
                 alert('주문 완료');
             }
         }
+
+
+        $(document).ready(function(){
+            $.ajax({
+                type: "GET",
+                url: "https://api.manana.kr/exchange/rate.json",
+                data: {},
+                success: function(response){
+                    let rate = response[1]["rate"];
+                    let temp = `원-달러 환율 : ${rate}`;
+                    $('#rate_of_exchange').append(temp);
+                }
+            })
+        })
     </script>
 
 
@@ -80,7 +92,7 @@
     <img src="http://naradeco.co.kr/web/upload/NNEditor/20200506/35d000898003b77f251a44f8df6f7f13.jpg" width="800" />
     <br>
     <br>
-    <p class="box1"> 토끼쿠션 </p>
+    <p class="box"> 토끼쿠션 </p>
     <p style="display: inline", id = price > &emsp; 가격 : 35,000원</p>
     <br>
     <br>
@@ -88,11 +100,12 @@
     <p>부드러운 촉감과 구름 같은 쿠션감을 느껴보세요! </p>
     <br>
     <br>
-    <p class="box2"> 주문하기 </p>
+    <p class="box"> 주문하기 </p> 
+    <p style="display: inline", id = "rate_of_exchange" > &emsp; </p>
     <br>
     <p> 주문자 성함 : <input id = "name" type="text" /> </p>
     <br>
-    <p> 수량 : <select style="display: inline" class="form-control">
+    <p> 수량 : <select id="amount" style="display: inline" class="form-control">
             <option> ----수량을 입력하세요---- </option>
             <option> 1개 </option>
             <option> 2개 </option>
@@ -105,11 +118,15 @@
     <br>
     <p> 전화번호 : <input id = "phone" type="text" /></p>
     <br>
-    <button onclick="hey()" type="button" class="btn btn-outline-danger">주문하기</button>
+    <button onclick="find_blank()" type="button" class="btn btn-outline-danger">주문하기</button>
 
     <br>
     <br>
     <br>
+    <br>
+    <br>
+    <br>
+    
 </body>
 
 </html>

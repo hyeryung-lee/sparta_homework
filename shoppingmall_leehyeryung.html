@@ -51,7 +51,7 @@
             if (name == '') {
                 alert( '이름을 입력해주세요.');
             }
-            else if (amount == '----수량을 입력하세요----'){
+            else if (amount == 0){
                 alert( '수량을 입력해주세요.');
             }
             else if (adress == ''){
@@ -106,7 +106,7 @@
     <p> 주문자 성함 : <input id = "name" type="text" /> </p>
     <br>
     <p> 수량 : <select id="amount" style="display: inline" class="form-control">
-            <option> ----수량을 입력하세요---- </option>
+            <option value="0"> ----수량을 입력하세요---- </option>
             <option> 1개 </option>
             <option> 2개 </option>
             <option> 3개 </option>
